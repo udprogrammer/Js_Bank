@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class BankAccount {
+        constructor(accountholder, accountnumber, balance) {
+          this.accountholder = accountholder;
+          this.accountnumber = accountnumber;
+          this.balance = 0;
+          this.lastTransaction = null;
+        }
+
+        deposit(amount) {
+          this.balance += amount;
+          this.lastTransaction = `Deposited ${amount}`;
+        }
+        withdraw(amount) {
+          if (amount <= this.balance) {
+            this.balance -= amount;
+            console.log(this.balance);
+            this.lastTransaction = `Withdrawn ${amount}`;
+          } else {
+            console.log("Insufficient balance in account");
+          }
+        }
+        getLastTransaction() {
+          if (this.lastTransaction) {
+            console.log("Last Transaction: " + this.lastTransaction);
+          } else {
+            console.log("No transactions yet.");
+          }
+        }
+        show() {
+          console.log(
+            "Account Holder Name : " +
+              this.accountholder +
+              "\nAccount Number : " +
+              this.accountnumber +
+              "\nAccount Balance " +
+              this.balance
+          );
+        }
+      }
+      let account = {};
+      function createAccount(accountholder, accountnumber) {
+        account = new BankAccount(accountholder, accountnumber);
+      }
+
+      function perfectbank() {
+        const choice = parseInt(
+          prompt(
+            "Select an action:\n" +
+              "1. Create Account\n" +
+              "2. Show Details Account\n" +
+              "3. Deposit\n" +
+              "4. Withdraw\n" +
+              "5. Last Transaction\n" +
+              "6. Exit"
+          )
+        );
+        switch (choice) {
+          case 1:
+            const accNumber = prompt("Enter account number:");
+            const accHolder = prompt("Enter account holder name:");
+            createAccount(accHolder, accNumber);
+            break;
+          case 2:
+            account.show();
+            break;
+          case 3:
+            let acdeposit = parseInt(prompt("Enter deposit amount"));
+            account.deposit(acdeposit);
+            account.show();
+            break;
+          case 4:
+            let acwithdraw = parseInt(prompt("Enter withdraw amount "));
+            account.withdraw(acwithdraw);
+            account.show();
+            break;
+          case 5:
+            account.getLastTransaction();
+            break;
+          case 6:
+            console.log("Exiting bank system.");
+            return;
+          default:
+            console.log("Wrong choice");
+        }
+
+        perfectbank();
+      }
+
+      perfectbank();
+    </script>
+  </body>
+</html>
